@@ -8,17 +8,20 @@ let mean l = sumlist l /. float_of_int (List.length l)
 
 (* Function to find the standard deviation in a list *)
 let stddev l =  
-        let passed  = List.filter pass l in 
-        let u = mean passed in
-        let diffsqr = List.map (fun x -> (x -. u) *. (x -. u)) passed in 
-        let var = sumlist diffsqr /. float_of_int (List.length passed) in 
+        let u = mean l in
+        let diffsqr = List.map (fun x -> (x -. u) *. (x -. u)) l in 
+        let var = sumlist diffsqr /. float_of_int (List.length l) in 
         if var != 0.0 then sqrt var
         else 0.0
+
+let student_stddev l = 
+        let passed = List.filter pass l in
+        stddev passed
 
 let main () = 
         let l = [35.0;35.0;35.0] in 
         (*let l = [1.0] in *)
-        let s = stddev l in
+        let s = student_stddev l in
         print_float s;
         print_newline ()
 
